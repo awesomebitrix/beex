@@ -1,5 +1,4 @@
 <?php
-// include_once $_SERVER['DOCUMENT_ROOT'].'/bitrix/admin/modules/picom_linked_properties/prolog.php';
 
 class pushin_dm extends CModule
 {
@@ -10,8 +9,7 @@ class pushin_dm extends CModule
     public $MODULE_VERSION = '1.0';
     public $MODULE_VERSION_DATE = '2012-05-17';
     
-	public function __construct() 
-    {
+	public function __construct() {
     
 		$arModuleVersion = array();
 
@@ -22,10 +20,21 @@ class pushin_dm extends CModule
 
 		$this->MODULE_NAME = 'Djem';
 		$this->MODULE_DESCRIPTION = '';
-		$this->PARTNER_NAME = 'pushin';
+		$this->PARTNER_NAME = 'pushin.pro';
 		$this->PARTNER_URI = 'http://pushin.pro';
+        
 	}
     
+    function DoInstall() {
+                    
+        RegisterModule($this->MODULE_ID);
+                
+    }
     
+    function DoUninstall() {
+    
+        UnRegisterModule($this->MODULE_ID);
+
+    }    
     
 }
