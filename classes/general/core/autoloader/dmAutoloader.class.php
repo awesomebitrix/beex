@@ -1,19 +1,19 @@
 <?php
 class dmAutoloader {
 
-    protected $libs = array()
+    protected $libs = array();
 
     protected $paths = array();
     
         
     public function addLib($path) {
     
-        $this->libPaths[] = new dmAutoloaderLib($path);
+        $this->libs[] = new dmAutoloaderLib($path);
     
     }
     
     public function register() {
-    
+
         CModule::AddAutoloadClasses('pushin.dm', $this->getPaths());
     
     }    
@@ -22,7 +22,7 @@ class dmAutoloader {
     
         if (!$this->paths) $this->loadPaths();
     
-        return $this->classesPaths;
+        return $this->paths;
     
     }
     
@@ -31,6 +31,7 @@ class dmAutoloader {
         $cache = new dmAutoloaderCache();
         
         $this->paths = $cache->get('paths');
+        $this->paths = array();
         
         if (!$this->paths) {
         
@@ -39,12 +40,12 @@ class dmAutoloader {
             $cache->set('paths', $this->paths);
             
         }
-    
+            
     }
     
     protected function findPaths() {
     
-        $classes = array()
+        $classes = array();
     
         foreach($this->libs as $lib) $classes = array_merge($classes, $lib->findClasses());
         
