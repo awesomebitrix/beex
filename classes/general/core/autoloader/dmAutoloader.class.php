@@ -7,14 +7,16 @@ class dmAutoloader {
     
         
     public function addLib($path) {
-    
+
+        if (!is_dir($path)) return;
+        
         $this->libs[] = new dmAutoloaderLib($path);
     
     }
     
     public function register() {
-
-        CModule::AddAutoloadClasses('pushin.dm', $this->getPaths());
+    
+        CModule::AddAutoloadClasses('', $this->getPaths());
     
     }    
     
@@ -44,7 +46,7 @@ class dmAutoloader {
     }
     
     protected function findPaths() {
-    
+  
         $classes = array();
     
         foreach($this->libs as $lib) $classes = array_merge($classes, $lib->findClasses());

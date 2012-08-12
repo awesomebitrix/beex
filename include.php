@@ -28,14 +28,16 @@ $config = dmCore::getService('config');
 $config->setOption('cacheRelativePath', "/config.cache");
 $config->set('paths/cache', $_SERVER['DOCUMENT_ROOT'].'/bitrix/cache/s1/dm_cache');
 $config->set('paths/module', dirname(__FILE__));
+$config->set('paths/root', $_SERVER['DOCUMENT_ROOT']);
+$config->set('bxModuleId', GetModuleID(__FILE__));
 
 $config->addPath(dirname(__FILE__).'/config');
 $config->load();
 
 $autoloader = dmCore::getService('autoloader');
 $autoloader->addLib(dirname(__FILE__).'/classes/general/lib');
+$events = GetModuleEvents('pushin.dm', 'OnBeforeDmAutoloaderRegister');
+while($event = $events->Fetch()) ExecuteModuleEvent($event, $autoloader);
+
 $autoloader->register();
 
-$request = new dmRequest();
-var_dump($request);
-die;

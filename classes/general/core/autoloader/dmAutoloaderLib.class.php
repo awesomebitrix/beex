@@ -18,18 +18,19 @@ class dmAutoloaderLib {
         
         $classes = array();
         
-        $modulePath = realpath(dmCore::getService('config')->get('paths/module'));
+        $rootPath = realpath(dmCore::getService('config')->get('paths/root'));
         
         foreach($filesystem->findPathsByPatternInDirRecursivly($this->path, '*.class.php') as $path) {            
                 
             $path = realpath($path);
-            $relativePath = preg_replace('%^'.$modulePath.'%six', '', $path);
+            $relativePath = preg_replace('%^'.$rootPath.'%six', '', $path);
+
             $className = dmArray::first(explode('.', basename($relativePath)));
 
             $classes[$className] = $relativePath;
             
         }
-        
+
         return $classes;
     
     }
