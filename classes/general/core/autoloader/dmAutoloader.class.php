@@ -5,6 +5,29 @@ class dmAutoloader {
 
     protected $paths = array();
     
+    public function init() {
+    
+        $config = dmCore::getService('config');
+    
+        $this->addLib($this->getModuleLibPath());
+        $events = GetModuleEvents($config->get('dmModuleId'), 'OnBeforeDmAutoloaderRegister');
+
+        while($event = $events->Fetch()) ExecuteModuleEvent($event, $autoloader);    
+    
+        return $this;
+    
+    }
+    
+    protected function getModuleLibPath() {
+    
+        $config = dmCore::getService('config');
+        
+        $path = $config->get('paths/module');
+        if (!$path) throw new Exception('Module path is not specified');
+        
+        return $path.'/classes/general/lib';
+    
+    }
         
     public function addLib($path) {
 
