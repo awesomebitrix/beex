@@ -36,5 +36,3 @@ $config->load();
 
 dmCore::getService('autoloader')->init()->register();
 
-echo 123
-
