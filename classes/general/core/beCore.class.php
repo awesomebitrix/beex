@@ -1,5 +1,5 @@
 <?php
-class dmCore {
+class beCore {
 
     protected $serviceContainer = null;
 
@@ -29,15 +29,15 @@ class dmCore {
 
     protected function initServiceContainer() {
 
-        $this->serviceContainer = new dmServiceContainer();
+        $this->serviceContainer = new beServiceContainer();
 
-        $config = new dmConfig();
+        $config = new beConfig();
         $config->set('paths/core', dirname(__FILE__));
 
         $this->serviceContainer
                 ->addService('config', $config)
-                ->addService('filesystem', new dmFilesystem())
-                ->addService('autoloader', new dmAutoloader())
+                ->addService('filesystem', new beFilesystem())
+                ->addService('autoloader', new beAutoloader())
         ;
 
 

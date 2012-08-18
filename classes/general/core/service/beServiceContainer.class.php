@@ -1,16 +1,16 @@
 <?php
-class dmServiceContainer {
+class beServiceContainer {
 
     protected $services = array();
 
     public function initServices() {
 
-        $config = dmCore::getService('config');
+        $config = beCore::getService('config');
 
         foreach($config->get('services') as $name => $options) {
 
             $this->addService($name, $options);
-            
+
         }
 
     }

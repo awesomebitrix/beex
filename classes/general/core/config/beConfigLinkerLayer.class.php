@@ -1,5 +1,5 @@
 <?php
-class dmConfigLinkerLayer extends dmConfigurable {
+class beConfigLinkerLayer extends beConfigurable {
 
     protected $data = array();
 
@@ -17,18 +17,18 @@ class dmConfigLinkerLayer extends dmConfigurable {
 
     public function load() {
 
-        $yamlParserPath = dmCore::getService('config')->get('paths/core').'/yaml/dmYamlParser.class.php';
+        $yamlParserPath = beCore::getService('config')->get('paths/core').'/yaml/beYamlParser.class.php';
 
         include_once $yamlParserPath;
 
-        $parser = new dmYamlParser();
+        $parser = new beYamlParser();
 
         foreach($this->getConfigFilesPaths() as $path) {
             $yaml = file_get_contents($path);
 
             $bindPath = null;
             if (preg_match('/^#path:(.*)/', $yaml, $matches)) {
-                $bindPath = trim(dmArray::get($matches, 1));
+                $bindPath = trim(beArray::get($matches, 1));
             }
             $bindPath = $bindPath? $bindPath : '';
             $this->addConfigsRecursivly($parser->execute($yaml), $bindPath);
@@ -44,7 +44,7 @@ class dmConfigLinkerLayer extends dmConfigurable {
 
     public function getConfigFilesPaths() {
         $path = $this->getOption('path');
-        $filesystem = dmCore::getService('filesystem');
+        $filesystem = beCore::getService('filesystem');
         return $filesystem->findPathsByPatternInDirRecursivly($path, '*.yml');
     }
 

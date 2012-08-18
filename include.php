@@ -1,38 +1,38 @@
 <?php
-CModule::AddAutoloadClasses('pushin.dm', array(
+CModule::AddAutoloadClasses('pushin.beex', array(
 
-    'dmConfigurable' => 'classes/general/core/base/dmConfigurable.class.php',
-    'dmArray' => 'classes/general/core/base/dmArray.class.php',
+    'beConfigurable' => 'classes/general/core/base/beConfigurable.class.php',
+    'beArray' => 'classes/general/core/base/beArray.class.php',
 
 
-    'dmAutoloader' => 'classes/general/core/autoloader/dmAutoloader.class.php',
-    'dmAutoloaderLib' => 'classes/general/core/autoloader/dmAutoloaderLib.class.php',
-    'dmAutoloaderCache' => 'classes/general/core/autoloader/dmAutoloaderCache.class.php',
-    
-    'dmCache' => 'classes/general/core/cache/dmCache.class.php',
-    'dmFilesystem' => 'classes/general/core/filesystem/dmFilesystem.class.php',
+    'beAutoloader' => 'classes/general/core/autoloader/beAutoloader.class.php',
+    'beAutoloaderLib' => 'classes/general/core/autoloader/beAutoloaderLib.class.php',
+    'beAutoloaderCache' => 'classes/general/core/autoloader/beAutoloaderCache.class.php',
 
-    'dmConfig' => 'classes/general/core/config/dmConfig.class.php',
-    'dmConfigLinker' => 'classes/general/core/config/dmConfigLinker.class.php',
-    'dmConfigLinkerLayer' => 'classes/general/core/config/dmConfigLinkerLayer.class.php',
+    'beCache' => 'classes/general/core/cache/beCache.class.php',
+    'beFilesystem' => 'classes/general/core/filesystem/beFilesystem.class.php',
 
-    'dmServiceContainer' => 'classes/general/core/service/dmServiceContainer.class.php',
-    
-    'dmYamlParser' => 'classes/general/core/yaml/dmYamlParser.class.php',
-    
-    'dmCore' => 'classes/general/core/dmCore.class.php',
-    
+    'beConfig' => 'classes/general/core/config/beConfig.class.php',
+    'beConfigLinker' => 'classes/general/core/config/beConfigLinker.class.php',
+    'beConfigLinkerLayer' => 'classes/general/core/config/beConfigLinkerLayer.class.php',
+
+    'beServiceContainer' => 'classes/general/core/service/beServiceContainer.class.php',
+
+    'beYamlParser' => 'classes/general/core/yaml/beYamlParser.class.php',
+
+    'beCore' => 'classes/general/core/beCore.class.php',
+
 ));
 
-$config = dmCore::getService('config');
+$config = beCore::getService('config');
 $config->setOption('cacheRelativePath', "/config.cache");
-$config->set('paths/cache', $_SERVER['DOCUMENT_ROOT'].'/bitrix/cache/s1/dm_cache');
+$config->set('paths/cache', $_SERVER['DOCUMENT_ROOT'].'/bitrix/cache/s1/be_cache');
 $config->set('paths/module', dirname(__FILE__));
 $config->set('paths/root', $_SERVER['DOCUMENT_ROOT']);
-$config->set('dmModuleId', 'pushin.dm');
+$config->set('beModuleId', 'pushin.beex');
 
 $config->addPath(dirname(__FILE__).'/config');
 $config->load();
 
-dmCore::getService('autoloader')->init()->register();
+beCore::getService('autoloader')->init()->register();
 

@@ -1,5 +1,5 @@
 <?php
-class dmFilesystem {
+class beFilesystem {
 
     public function findPathsByPatternInDirRecursivly($dirPath, $pattern, $filterDirPaths = null) {
 

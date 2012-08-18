@@ -1,5 +1,5 @@
 <?php
-class dmAutoloader {
+class beAutoloader {
 
     protected $libs = array();
 
@@ -7,10 +7,11 @@ class dmAutoloader {
 
     public function init() {
 
-        $config = dmCore::getService('config');
+        $config = beCore::getService('config');
 
         $this->addLib($this->getModuleLibPath());
-        $events = GetModuleEvents($config->get('dmModuleId'), 'OnBeforeDmAutoloaderRegister');
+
+        $events = GetModuleEvents($config->get('beModuleId'), 'BeexAutoloaderInit');
 
         while($event = $events->Fetch()) ExecuteModuleEvent($event, $this);
 
@@ -20,7 +21,7 @@ class dmAutoloader {
 
     protected function getModuleLibPath() {
 
-        $config = dmCore::getService('config');
+        $config = beCore::getService('config');
 
         $path = $config->get('paths/module');
         if (!$path) throw new Exception('Module path is not specified');
@@ -33,7 +34,7 @@ class dmAutoloader {
 
         if (!is_dir($path)) return;
 
-        $this->libs[] = new dmAutoloaderLib($path);
+        $this->libs[] = new beAutoloaderLib($path);
 
     }
 
@@ -53,7 +54,7 @@ class dmAutoloader {
 
     public function loadPaths() {
 
-        $cache = new dmAutoloaderCache();
+        $cache = new beAutoloaderCache();
 
         $this->paths = $cache->get('paths');
         $this->paths = array();

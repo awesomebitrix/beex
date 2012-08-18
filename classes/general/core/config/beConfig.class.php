@@ -1,5 +1,5 @@
 <?php
-class dmConfig extends dmConfigurable {
+class beConfig extends beConfigurable {
 
     protected $config = null;
 
@@ -82,7 +82,7 @@ class dmConfig extends dmConfigurable {
 
     public function loadConfigFromLayers() {
 
-        $linker = new dmConfigLinker();
+        $linker = new beConfigLinker();
 
         $linker->setConfigs($this->config);
 
@@ -91,9 +91,9 @@ class dmConfig extends dmConfigurable {
             ->buildLayers()
             ->buildConfigs()
         ;
-        
+
         return $linker->getConfigs();
-        
+
     }
 
     public function set($path, $value) {

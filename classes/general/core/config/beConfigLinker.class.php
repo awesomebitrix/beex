@@ -1,5 +1,5 @@
 <?php
-class dmConfigLinker extends dmConfigurable {
+class beConfigLinker extends beConfigurable {
 
     protected $layers = array();
 
@@ -13,8 +13,8 @@ class dmConfigLinker extends dmConfigurable {
 
     public function buildLayers() {
 
-        foreach(dmArray::fetch($this->getOption('paths')) as $path) {
-            $newLayer = new dmConfigLinkerLayer(array(
+        foreach(beArray::fetch($this->getOption('paths')) as $path) {
+            $newLayer = new beConfigLinkerLayer(array(
                 'path' => $path,
             ));
             $newLayer->load();
@@ -25,7 +25,7 @@ class dmConfigLinker extends dmConfigurable {
 
     }
 
-    public function addLayer(dmConfigLinkerLayer $layer) {
+    public function addLayer(beConfigLinkerLayer $layer) {
 
         $this->layers[] = $layer;
 

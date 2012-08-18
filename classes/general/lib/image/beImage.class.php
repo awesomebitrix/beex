@@ -1,5 +1,5 @@
 <?php
-class dmImage {
+class beImage {
 
     protected $fileId = null;
 
@@ -23,25 +23,25 @@ class dmImage {
 
     public function getOriginalWidth() {
 
-        return dmArray::get($this->originalData, 'WIDTH');
+        return beArray::get($this->originalData, 'WIDTH');
 
     }
 
     public function getOriginalHeight() {
 
-        return dmArray::get($this->originalData, 'HEIGHT');
+        return beArray::get($this->originalData, 'HEIGHT');
 
     }
 
     public function getOriginalSrc() {
 
-        return dmArray::get($this->originalData, 'SRC');
+        return beArray::get($this->originalData, 'SRC');
 
     }
 
     public function getOriginalData($name) {
 
-        return dmArray::get($this->originalData, $name);
+        return beArray::get($this->originalData, $name);
 
     }
 
@@ -51,7 +51,7 @@ class dmImage {
 
             $this->originalData = $fileId;
 
-            $fileId = dmArray::get($this->originalData, 'ID');
+            $fileId = beArray::get($this->originalData, 'ID');
 
         }
         elseif(loadOriginalData) {
