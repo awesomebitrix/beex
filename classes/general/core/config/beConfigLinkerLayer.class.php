@@ -28,7 +28,7 @@ class beConfigLinkerLayer extends beConfigurable {
 
             $bindPath = null;
             if (preg_match('/^#path:(.*)/', $yaml, $matches)) {
-                $bindPath = trim(beArray::get($matches, 1));
+                $bindPath = trim(beCoreArray::get($matches, 1));
             }
             $bindPath = $bindPath? $bindPath : '';
             $this->addConfigsRecursivly($parser->execute($yaml), $bindPath);

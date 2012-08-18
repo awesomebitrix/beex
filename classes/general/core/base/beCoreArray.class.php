@@ -1,5 +1,5 @@
 <?php
-class beArray {
+class beCoreArray {
 
     public static function get($array, $key, $default = null) {
 
@@ -13,7 +13,7 @@ class beArray {
 
     }
 
-    public static function lasr($array) {
+    public static function last($array) {
 
         return array_pop($array);
 

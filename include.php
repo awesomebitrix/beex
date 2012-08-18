@@ -2,7 +2,7 @@
 CModule::AddAutoloadClasses('pushin.beex', array(
 
     'beConfigurable' => 'classes/general/core/base/beConfigurable.class.php',
-    'beArray' => 'classes/general/core/base/beArray.class.php',
+    'beCoreArray' => 'classes/general/core/base/beCoreArray.class.php',
 
 
     'beAutoloader' => 'classes/general/core/autoloader/beAutoloader.class.php',

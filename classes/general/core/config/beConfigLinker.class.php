@@ -13,7 +13,7 @@ class beConfigLinker extends beConfigurable {
 
     public function buildLayers() {
 
-        foreach(beArray::fetch($this->getOption('paths')) as $path) {
+        foreach(beCoreArray::fetch($this->getOption('paths')) as $path) {
             $newLayer = new beConfigLinkerLayer(array(
                 'path' => $path,
             ));

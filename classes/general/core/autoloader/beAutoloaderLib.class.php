@@ -25,7 +25,7 @@ class beAutoloaderLib {
             $path = realpath($path);
             $relativePath = preg_replace('%^'.$rootPath.'%six', '', $path);
 
-            $className = beArray::first(explode('.', basename($relativePath)));
+            $className = beCoreArray::first(explode('.', basename($relativePath)));
 
             $classes[$className] = $relativePath;
 

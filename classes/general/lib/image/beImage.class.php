@@ -23,25 +23,25 @@ class beImage {
 
     public function getOriginalWidth() {
 
-        return beArray::get($this->originalData, 'WIDTH');
+        return beCoreArray::get($this->originalData, 'WIDTH');
 
     }
 
     public function getOriginalHeight() {
 
-        return beArray::get($this->originalData, 'HEIGHT');
+        return beCoreArray::get($this->originalData, 'HEIGHT');
 
     }
 
     public function getOriginalSrc() {
 
-        return beArray::get($this->originalData, 'SRC');
+        return beCoreArray::get($this->originalData, 'SRC');
 
     }
 
     public function getOriginalData($name) {
 
-        return beArray::get($this->originalData, $name);
+        return beCoreArray::get($this->originalData, $name);
 
     }
 
@@ -51,7 +51,7 @@ class beImage {
 
             $this->originalData = $fileId;
 
-            $fileId = beArray::get($this->originalData, 'ID');
+            $fileId = beCoreArray::get($this->originalData, 'ID');
 
         }
         elseif(loadOriginalData) {
