@@ -10,9 +10,13 @@ class beMenu extends beConfigurable {
     protected $childs = array();
 
     protected $renderer = null;
+    
+    protected $isParent = null;
 
     public function __construct($data = array()) {
 
+        $this->configure();
+    
         $this->setData($data);
 
         $this->parent = $parent;
@@ -25,6 +29,12 @@ class beMenu extends beConfigurable {
 
     }
 
+    public function getChilds() {
+    
+        return $this->childs;
+    
+    }
+    
     public function fromBitrixTree($tree) {
 
         $current = $this;
@@ -47,10 +57,38 @@ class beMenu extends beConfigurable {
 
     }
 
-    public function toBitrixMenuTree() {
+    public function childsToBitrixMenuTree() {
+    
+        $items = array();
         
+        foreach($this->childs as $child) $items = array_merge($items, $child->toBitrixMenuTree());
+        
+        return $items;
+    
     }
 
+    public function toBitrixMenuTree() {
+            
+        $items = array_merge(
+            array($this->renderBitrixMenuItem()),
+            $this->childsToBitrixMenuTree()
+        );
+                
+        return $items;
+        
+    }
+    
+    public function renderBitrixMenuItem() {
+    
+        return array(
+                $this->getData('TEXT'), 
+                $this->getData('LINK'), 
+                array(), 
+                array('FROM_IBLOCK' => 1, 'DEPTH_LEVEL' => $this->getLevel()),             
+            );
+    
+    }
+    
     public function setData($data) {
 
         $this->data = $data;
@@ -150,6 +188,7 @@ class beMenu extends beConfigurable {
     protected function buildRenderer() {
 
         $rendererClass = $this->getOption('renderer');
+
         if ($rendererClass) $this->renderer = new $rendererClass();
 
     }
@@ -195,6 +234,14 @@ class beMenu extends beConfigurable {
   *
   */
 
+    public function isHightlight() {
+                
+        if (!$this->isCurrent() && $this->isParent() && !$this->hasChilds()) return true;
+                
+        return false;
+        
+    }
+  
     public function isCurrent() {
 
         global $APPLICATION;
@@ -203,12 +250,22 @@ class beMenu extends beConfigurable {
 
     }
 
-    public function isParrent() {
+    public function isParent() {
+    
+        if (null == $this->isParent) $this->isParent = $this->checkIsParent();
+        
+        return $this->isParent;
 
-        foreach($this->childs as $child) if ($child->isCurrent()) return true;
+    }
+    
+    protected function checkIsParent() {
+    
+        if ($this->data['SELECTED'] && !$this->isCurrent()) return true;
+    
+        foreach($this->childs as $child) if ($child->isCurrent() || $child->isParent()) return true;        
 
         return false;
-
+        
     }
 
     public function getLabel() {

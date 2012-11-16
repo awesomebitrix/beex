@@ -12,6 +12,7 @@ class beMenuRenderer extends beConfigurable {
         return array(
             'parentClass' => 'is-parent',
             'curentClass' => 'is-current',
+            'hightlightClass' => '',
             'itemClass' => 'item',
             'firstItemClass' => 'first',
             'lastItemClass' => 'last',
@@ -25,7 +26,20 @@ class beMenuRenderer extends beConfigurable {
 
         $html = null;
 
-        foreach($menu->getChilds() as $child) $html .= $this->renderItem($child);
+        $childs = $menu->getChilds();
+        
+        $countChilds = count($childs);
+        
+        $number = 0;
+        foreach($childs as $child) {
+            $classes = array();
+            $isFirst = !$number;
+            $isLast = $number == ($countChilds - 1); 
+            if ($isFirst) $classes[] = $this->getOption('firstItemClass');
+            if ($isLast) $classes[] = $this->getOption('lastItemClass');
+            $html .= $this->renderItem($child, $classes);
+            $number++;
+        }
 
         return $html;
 
@@ -56,8 +70,9 @@ class beMenuRenderer extends beConfigurable {
         $classes = array_merge($classes, array($this->getOption('itemClass')));
         if ($menu->isCurrent()) $classes[] = $this->getOption('curentClass');
         if ($menu->isParent()) $classes[] = $this->getOption('parentClass');
+        if ($menu->isHightlight() && trim($this->getOption('hightlightClass'))) $classes[] = $this->getOption('hightlightClass');
 
-        return '<li classes="'.implode(' ', $classes).'">';
+        return '<li class="'.implode(' ', $classes).'">';
 
     }
 
