@@ -23,7 +23,8 @@ class beAutoloaderLib {
         foreach($filesystem->findPathsByPatternInDirRecursivly($this->path, '*.class.php') as $path) {
 
             $path = realpath($path);
-            $relativePath = preg_replace('/^'.preg_quote($rootPath).'/six', '', $path);
+            $relativePath = preg_replace('%^'.preg_quote($rootPath).'%six', '', $path);
+            
             $className = beCoreArray::first(explode('.', basename($relativePath)));
 
             $classes[$className] = $relativePath;
