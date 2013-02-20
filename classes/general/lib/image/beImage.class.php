@@ -6,6 +6,8 @@ class beImage {
     protected $attributes = null;
 
     protected $originalData = null;
+    
+    protected $resizedData = array();
 
     public static function create($fileId, $loadOriginalData = false) {
 
@@ -98,26 +100,51 @@ class beImage {
     }
 
     public function render() {
+    
+        $this->resize();
+    
         $html = '';
         if ($this->fileId) {
-            $arFileTmp = CFile::ResizeImageGet(
-                $this->fileId,
-                array("width" => $this->width, "height" => $this->height),
-                BX_RESIZE_IMAGE_PROPORTIONAL,
-                true,
-                array()
-            );
-            if ($arFileTmp["width"] && $arFileTmp["height"] && $arFileTmp["src"]) {
+        
+            $data = $this->resizedData;
+            $width = beArray::get($data, 'width');
+            $height = beArray::get($data, 'height');
+            $src = $this->getSrc();
+            
+            if ($width && $height && $src) {
                 $html = '
                     <img
-                        width="'.$arFileTmp["width"].'"
-                        height="'.$arFileTmp["height"].'"
-                        src="'.$arFileTmp["src"].'"
+                        width="'.$width.'"
+                        height="'.$height.'"
+                        src="'.$src.'"
                         '.$this->attributes.'
                     >
                 ';
             }
+            
         }
         return $html;
+    }
+    
+    public function resize() {
+    
+        if (!$this->fileId) return $this;
+        
+        $this->resizedData = CFile::ResizeImageGet(
+            $this->fileId,
+            array("width" => $this->width, "height" => $this->height),
+            BX_RESIZE_IMAGE_PROPORTIONAL,
+            true,
+            array()
+        );
+        
+        return $this;
+        
+    }
+    
+    public function getSrc() {
+                
+        return beArray::get($this->resizedData, 'src');
+        
     }
 }
