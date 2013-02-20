@@ -245,8 +245,11 @@ class beMenu extends beConfigurable {
     public function isCurrent() {
 
         global $APPLICATION;
-
-        return ($this->data['LINK'] == $APPLICATION->GetCurPage());
+        
+        $curentUrl = $APPLICATION->GetCurPage();
+        $curentUrlWitoutIndexPhp = preg_replace('%index.php$%six', '', $curentUrl);
+        
+        return in_array($this->data['LINK'], array($curentUrl, $curentUrlWitoutIndexPhp));
 
     }
 
@@ -280,10 +283,16 @@ class beMenu extends beConfigurable {
 
     }
 
-    public function getData($name) {
-
+    public function getData($name = null) {
+    
         return beArray::get($this->data, $name);
 
+    }
+    
+    public function getAllData() {  
+    
+        return $this->data;
+        
     }
 
 }
