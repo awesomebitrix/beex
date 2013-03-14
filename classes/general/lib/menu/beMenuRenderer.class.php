@@ -11,7 +11,7 @@ class beMenuRenderer extends beConfigurable {
 
         return array(
             'parentClass' => 'is-parent',
-            'curentClass' => 'is-current',
+            'currentClass' => 'is-current',
             'hightlightClass' => '',
             'itemClass' => 'item',
             'firstItemClass' => 'first',
@@ -68,7 +68,7 @@ class beMenuRenderer extends beConfigurable {
     public function renderOpenLiTag(beMenu $menu, $classes = array()) {
 
         $classes = array_merge($classes, array($this->getOption('itemClass')));
-        if ($menu->isCurrent()) $classes[] = $this->getOption('curentClass');
+        if ($menu->isCurrent()) $classes[] = $this->getOption('currentClass');
         if ($menu->isParent()) $classes[] = $this->getOption('parentClass');
         if ($menu->isHightlight() && trim($this->getOption('hightlightClass'))) $classes[] = $this->getOption('hightlightClass');
 
